@@ -25,13 +25,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darwinsalinas/backend-node-ts2.git"
+    "url": "git+https://github.com/TaniaCruz09/validating-crud-in-node-express.git"
   },
-  "keywords": [],
-  "author": "Darwin Salinas <salinash2000@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/darwinsalinas/backend-node-ts2/issues"
-  },
-  "homepage": "https://github.com/darwinsalinas/backend-node-ts2#readme"
+  "author": "TaniaCruz, OscarAranda, ElliamSanches",
+  "license": "ISC"
 }
