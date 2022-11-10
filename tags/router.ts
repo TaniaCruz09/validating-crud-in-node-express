@@ -4,33 +4,29 @@ import controller from "./controller";
 
 const router = Router();
 
-router.get("/", requireAuth, async (req: Request, res: Response) => {
-  const productos = await controller.list();
-  res.status(201).json(productos);
+router.get("/", async (req: Request, res: Response) => {
+  const list = await controller.list();
+  res.json(list);
 });
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const product = await controller.store(req.body);
-    res
-      .status(201)
-      .json({ message: "Producto agregado exitosamente", product });
+    const product = await controller.addTag(req.body);
+    res.status(201).json(product);
   } catch (error) {
     res.json({
-      message: "Ha ocurrido un error",
+      message: error,
     });
   }
 });
 
-router.get("/:id", requireAuth, async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const product = await controller.getOne(id);
+    const product = await controller.getOneTag(id);
     res.json(product);
   } catch (error) {
-    res.json({
-      message: "Ha ocurrido un error",
-    });
+    res.json({ message: "Ha ocurrido un error" });
   }
 });
 

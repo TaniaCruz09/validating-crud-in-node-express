@@ -9,9 +9,7 @@ const register = async (data: IUser) => {
     const password = await bcryp.hash(data.password, 10);
 
     const user = new User({ id, name: data.name, username: data.username, password });
-
     await user.save();
-
     return user;
 }
 
@@ -30,15 +28,11 @@ const findUserById = async (id: string) => {
 
 
 const storeUserToken = async (username: string, token: string) => {
-
     const user = await findUserByUserName(username);
-
     if (user) {
         user.token = token;
-
         await user.save();
     }
-
     return user;
 }
 

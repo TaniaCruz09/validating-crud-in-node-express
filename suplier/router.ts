@@ -4,33 +4,31 @@ import controller from "./controller";
 
 const router = Router();
 
-router.get("/", requireAuth, async (req: Request, res: Response) => {
-  const productos = await controller.list();
-  res.status(201).json(productos);
+router.get("/", async (req: Request, res: Response) => {
+  const list = await controller.list();
+  res.json(list);
 });
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const product = await controller.store(req.body);
+    const suplier = await controller.addSuplier(req.body);
     res
       .status(201)
-      .json({ message: "Producto agregado exitosamente", product });
+      .json({ message: "Proveedor agregado correctamente", suplier });
   } catch (error) {
     res.json({
-      message: "Ha ocurrido un error",
+      message: error,
     });
   }
 });
 
-router.get("/:id", requireAuth, async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const product = await controller.getOne(id);
-    res.json(product);
+    const suplier = await controller.getOneSuplier(id);
+    res.json(suplier);
   } catch (error) {
-    res.json({
-      message: "Ha ocurrido un error",
-    });
+    res.json({ message: "Ha ocurrido un error" });
   }
 });
 
@@ -38,10 +36,10 @@ router.put("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const product = await controller.update(id, data);
+    const suplier = await controller.update(id, data);
     res.json({
-      message: "Se ha actualizado correctamente el producto",
-      product,
+      message: "Se ha actualizado correctamente los datos del proveedor",
+      suplier,
     });
   } catch (error) {
     res.json({
@@ -53,8 +51,8 @@ router.put("/:id", async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const product = await controller.delete(id);
-    res.json({ message: "Producto elimidado", product });
+    await controller.delete(id);
+    res.json({ message: "Proveedor elimidado" });
   } catch (error) {
     res.json({
       message: "Ha ocurrido un error",
