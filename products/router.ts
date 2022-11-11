@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import validations from "./validations";
 import { requireAuth } from "../auth/middlewares";
 import controller from "./controller";
 
@@ -15,9 +16,9 @@ router.post("/", async (req: Request, res: Response) => {
     res
       .status(201)
       .json({ message: "Producto agregado exitosamente", product });
-  } catch (error) {
+  } catch (validations) {
     res.json({
-      message: "Ha ocurrido un error",
+      message: validations.message,
     });
   }
 });

@@ -1,12 +1,13 @@
 import repository from "./repository";
 import { Product as IProduct } from "./interfaces";
+import validations from "./validations";
 
 const list = async () => {
   return await repository.list();
 };
 
 const store = async (data: IProduct) => {
-  if (!data.name) throw new Error("Property name is missing");
+  validations.validateProductInput(data);
   const product = await repository.store(data);
   return product;
 };
