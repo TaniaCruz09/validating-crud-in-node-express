@@ -13,10 +13,13 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
     const sale = await controller.addSale(req.body);
     res.status(201).json({ message: "Venta agregada correctamente", sale });
-  } catch (error) {
-    res.json({
-      message: error,
-    });
+  } catch (error: any) {
+    if (error.name === "SaleException") {
+      res.status(400).json({
+        message: error.message,
+      });
+    }
+    res.status(500).json({ message: error });
   }
 });
 

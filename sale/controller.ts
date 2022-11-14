@@ -6,7 +6,6 @@ const list = async () => {
 };
 
 const addSale = async (data: ISale) => {
-  if (!data.productName) throw new Error("Property name is missing");
   const sale = await repository.addSale(data);
   return sale;
 };

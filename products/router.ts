@@ -16,9 +16,14 @@ router.post("/", async (req: Request, res: Response) => {
     res
       .status(201)
       .json({ message: "Producto agregado exitosamente", product });
-  } catch (validations) {
-    res.json({
-      message: validations.message,
+  } catch (error: any) {
+    if (error.name === "ProductsException") {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+    res.status(500).json({
+      message: error,
     });
   }
 });
