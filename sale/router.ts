@@ -21,7 +21,7 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
     }
     res.status(500).json({ message: error });
   }
-});
+}); 
 
 router.get("/:id", requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params;

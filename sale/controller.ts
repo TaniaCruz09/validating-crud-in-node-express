@@ -1,13 +1,16 @@
 import repository from "./repository";
 import { Sale as ISale } from "./interfaces";
+import validation from "./validation"; 
 
 const list = async () => {
   return await repository.list();
 };
 
 const addSale = async (data: ISale) => {
+  validation.validateSaleImput (data );
   const sale = await repository.addSale(data);
   return sale;
+  
 };
 
 const getOneSale = async (id: string) => {

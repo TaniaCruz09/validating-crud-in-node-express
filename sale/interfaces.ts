@@ -2,6 +2,6 @@ export interface Sale {
   productName: String;
   amount: Number;
   date: String;
-  tax: String;
+  tax: Number;
   total: Number;
 }
