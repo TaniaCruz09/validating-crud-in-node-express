@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-import validations from "./validations";
 import { requireAuth } from "../auth/middlewares";
 import controller from "./controller";
 
@@ -10,7 +9,7 @@ router.get("/", requireAuth, async (req: Request, res: Response) => {
   res.status(201).json(productos);
 });
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
     const product = await controller.store(req.body);
     res
@@ -40,7 +39,7 @@ router.get("/:id", requireAuth, async (req: Request, res: Response) => {
   }
 });
 
-router.put("/:id", async (req: Request, res: Response) => {
+router.patch("/:id", requireAuth, async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const data = req.body;
@@ -49,14 +48,20 @@ router.put("/:id", async (req: Request, res: Response) => {
       message: "Se ha actualizado correctamente el producto",
       product,
     });
-  } catch (error) {
-    res.json({
-      message: "Ha ocurrido un error",
+  } catch (error: any) {
+    if (error.message === "Product not found") {
+      return res.status(404).json({
+        message: error.message,
+      });
+    }
+
+    res.status(500).json({
+      message: error,
     });
   }
 });
 
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", requireAuth, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const product = await controller.delete(id);
