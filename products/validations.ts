@@ -2,7 +2,7 @@ import { Product as IProduct } from "./interfaces";
 import { ProductsException } from "./errorClass";
 
 const validateProductInput = ({ name, price }: IProduct) => {
-  //validando que el nombre no este vacio, que sea de tipo string 
+  //validando que el nombre no este vacio, que sea de tipo string
   //y que lo escrito no sea menor que 3 ni mayor que 5.
   if (!name) throw new ProductsException("Property name is missing");
   if (typeof name !== "string")
