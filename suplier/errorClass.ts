@@ -1,1 +1,7 @@
-//trabaja aqui la clase de las excepciones
+export class SuplierException extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "SuplierException";
+    }
+    }
+    
